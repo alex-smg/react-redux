@@ -1,38 +1,115 @@
-.App {
-  text-align: center;
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  background-color: #f7f7f7;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.Navbar {
+  background-color: #32cdff;
+  box-shadow: 0 3px 5px rgba(0,0,0,.05);
+  box-sizing: border-box;
+  height: 60px;
+  margin-bottom: 30px;
+  width: 100%;
+  z-index: 9;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.profil {
+  width: 20%;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.profil img{
+  width: 100%;
+}
+
+.homeContainer{
+  width: 80%;
+  margin: auto;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  justify-content: space-between;
+}
+.homeContainer .containerCard {
+  background-color: #FFFFFF;
+  padding: 2%;
+  border-radius: 15px;
+  box-shadow: 0 0 25px 0 rgba(0,0,0,.04);
+  width: 70%;
+}
+
+.card {
+  display: flex;
+  border-radius: 14.5px;
+  height: 134px;
+  width: 116px;
+  box-shadow: 0 1.39759px 4.19277px rgba(0,0,0,.1), 0 4.89157px 0 -1px #fff, 0 4.89157px 4.19277px rgba(0,0,0,.1), 0 8.38554px 0 -1px #fff, 0 8.38554px 4.19277px rgba(0,0,0,.1);
+}
+.question {
+  -webkit-transform-style: preserve-3d;
+  -webkit-transition: 0.5s;
+  transform-style: preserve-3d;
+  transition: 0.5s;
+  margin: auto;
+  display: flex;
+  border-radius: 14.5px;
+  height: 323px;
+  width: 100%;
+  box-shadow: 0 3px 10px 0 rgba(0,0,0,.18);
+}
+.question h3 {
+  margin: auto;
+}
+
+.card h2 {
+  display: block;
+  margin: auto;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+}
+.lesson {
+  width: 80%;
+  margin: auto;
+  height: 80vh;
+  display: flex;
+  border-radius: 15px;
+  box-shadow: 0 2px 20px 0 rgba(0,0,0,.1);
+}
+.containerCardLesson  {
+  width: 30%;
+  margin: auto;
+}
+button {
+  display: block;
+  border: none;
+  width: 100%;
+  background-color: #32cdff;
+  text-transform: uppercase;
+  font-size: 22px;
   color: white;
+  font-weight: 700;
+  padding: 10px 0;
+  border-radius: 10px;
+  margin-top: 40px;
+  cursor: pointer;
+
 }
 
-.App-link {
-  color: #61dafb;
+.transition {
+  webkit-transform: rotatey(-180deg);
+  transform: rotatey(-180deg);
+}
+.transitionh2 {
+  webkit-transform: rotatey(-360deg);
+  transform: rotatey(-360deg);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.novisible {
+  visibility: hidden;
 }
