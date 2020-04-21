@@ -1,9 +1,16 @@
 import React from 'react';
+import logo from '../assets/logo.svg';
+import {
+    BrowserRouter as Router,
+    Link
+} from "react-router-dom";
 
 function Navbar() {
     return (
             <div className="Navbar">
-                <h1>Fake tiny card</h1>
+                <Link to={'/'}>
+                    <img className="logo" src={logo}/>
+                </Link>
             </div>
     );
 }

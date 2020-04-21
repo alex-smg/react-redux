@@ -8,6 +8,12 @@ body {
   background-color: #f7f7f7;
 }
 
+.logo {
+  height: 80%;
+  display: block;
+  margin: auto;
+}
+
 .Navbar {
   background-color: #32cdff;
   box-shadow: 0 3px 5px rgba(0,0,0,.05);
@@ -16,6 +22,7 @@ body {
   margin-bottom: 30px;
   width: 100%;
   z-index: 9;
+  display: flex;
 }
 
 .profil {
@@ -105,7 +112,12 @@ button {
   webkit-transform: rotatey(-180deg);
   transform: rotatey(-180deg);
 }
+
 .transitionh2 {
+  webkit-transform: rotatey(-180deg);
+  transform: rotatey(-180deg);
+}
+.transitionh22 {
   webkit-transform: rotatey(-360deg);
   transform: rotatey(-360deg);
 }

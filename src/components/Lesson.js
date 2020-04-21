@@ -11,39 +11,49 @@ const Lesson = ({item, nextCard}) => {
         card: item.cards.find(el => el.id === store.getState().showCard.indexCard)
     });
     const [showState, setShowState] = useState({
-        show: cardState.card.question.title
+        show: cardState.card.question.title,
+        swipCard: true
     });
 
-    useEffect(() => {
-        console.log(store.getState());
-    })
-
-
     const generateCard = () => {
-        nextCard(4);
-        console.log(item.cards.find(el => el.id === store.getState().showCard.indexCard));
-        setCardState({
-            card: item.cards.find(el => el.id === store.getState().showCard.indexCard)
-        });
-        let test = item.cards.find(el => el.id === store.getState().showCard.indexCard)
-        console.log(test)
-        setShowState({
-            show: test.question.title
-        });
+        let limit = item.cards.length;
+        console.log(cardState);
+        if ( cardState.card.id < limit) {
+            console.log('test')
+            nextCard(limit);
+            setCardState({
+                card: item.cards.find(el => el.id === store.getState().showCard.indexCard)
+            });
+            let test = item.cards.find(el => el.id === store.getState().showCard.indexCard)
+            setShowState({
+                show: test.question.title
+            });
+        }
+
     };
 
     const swip = () => {
-        document.querySelector('#card-'+ cardState.card.id).classList.add('transition');
-        document.querySelector('#card-'+ cardState.card.id).classList.add('transitionh2');
+        let card = document.querySelector('#card-'+ cardState.card.id);
+        let title = document.querySelector('#title-'+ cardState.card.id);
+
+        if(card.classList[1] === 'transition') {
+            card.classList.add('transition2');
+            card.classList.remove('transition');
+            title.classList.add('transitionh22');
+            title.classList.remove('transitionh2');
+        } else {
+            card.classList.add('transition');
+            card.classList.remove('transition2');
+            title.classList.add('transitionh2');
+            title.classList.remove('transitionh22');
+        }
         setShowState({
             show: showState.show === cardState.card.question.response.goodResponse ? cardState.card.question.title : cardState.card.question.response.goodResponse
         });
     }
 
     const next = () => {
-        console.log(store.getState());
         generateCard();
-        console.log(store.getState());
     };
     return (
         <div className="lesson">
