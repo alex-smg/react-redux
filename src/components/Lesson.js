@@ -18,7 +18,7 @@ const Lesson = ({item, nextCard}) => {
     const generateCard = () => {
         let limit = item.cards.length;
         console.log(cardState);
-        if ( cardState.card.id < limit) {
+        if ( cardState.card.id +1 < limit) {
             console.log('test')
             nextCard(limit);
             setCardState({
@@ -68,7 +68,7 @@ const Lesson = ({item, nextCard}) => {
 
                     </div>
                 </div>
-                <button onClick={() => next()}>CONTINUE</button>
+                <button className="button" onClick={() => next()}>CONTINUE</button>
             </div>
         </div>
     )

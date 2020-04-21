@@ -92,7 +92,7 @@ a {
   width: 30%;
   margin: auto;
 }
-button {
+.button {
   display: block;
   border: none;
   width: 100%;
@@ -124,4 +124,10 @@ button {
 
 .novisible {
   visibility: hidden;
+}
+
+.select {
+  width: 100%;
+  border-bottom: 1px solid #e8e8e8;
+  margin-bottom: 5%;
 }
