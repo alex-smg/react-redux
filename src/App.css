@@ -98,6 +98,17 @@ body {
   cursor: pointer;
 }
 
+.goodResponse {
+  background-color: #32cdff;
+  color: #FFFFFF;
+}
+
+.badResponse {
+  background-color: rgb(255, 91, 69);
+  border: 3px solid rgb(255, 91, 69);
+  color: #FFFFFF;
+}
+
 .titleQuestion {
   margin: auto;
   width: 90%;

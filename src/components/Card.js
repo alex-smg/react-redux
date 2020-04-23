@@ -1,19 +1,16 @@
 import React, {useState} from 'react'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 
 function Card (props) {
-
-    console.log(props);
-
+    console.log(props.item);
     const [showState, setShowState] = useState({
         show: props.item.question.title,
-        cardOrQuestion: 1,
+        responseOrResult: 1,
     });
 
     const swip = () => {
         setShowState({
-            show: showState.show === props.item.question.response.goodResponse ? props.item.question.title : props.item.question.response.goodResponse,
-            cardOrQuestion: 1
+            responseOrResult: showState.responseOrResult === 1 ? 2 : 1
         });
         let card = document.querySelector('#card-'+ props.id);
         let title = document.querySelector('#title-'+ props.id);
@@ -30,11 +27,14 @@ function Card (props) {
             title.classList.remove('transitionh22');
         }
     };
+
     return (
         <div className="cardLesson">
             <div id={"card-" + props.id} className="question" onClick={() => swip()}>
                 <div className="containerTitleQuestion">
-                    <h3 id={"title-"+ props.id} className="titleQuestion">{showState.show}</h3>
+                    <h3 id={"title-"+ props.id} className="titleQuestion">{
+                        showState.responseOrResult === 1 ? props.item.question.title : props.item.question.response.goodResponse
+                    }</h3>
                 </div>
             </div>
         </div>
@@ -42,8 +42,10 @@ function Card (props) {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    const itemState = state.lesson[ownProps.indexOfLesson].cards.find(el => el.id === ownProps.id);
+    const index =  state.showCard.indexCard;
+    const itemState = state.lesson[ownProps.indexOfLesson].cards.find(el => el.id === state.showCard.indexCard);
     return {
+        index: index,
         item: itemState
     }
 };

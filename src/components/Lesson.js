@@ -1,15 +1,17 @@
 import React, {useState} from 'react'
-import { connect } from 'react-redux'
-import {useStore} from 'react-redux';
+import { connect, useStore } from 'react-redux'
 import {nextCard, resolveCard, unresolveCard} from "../actions/actions";
 import Card from './Card';
-
+import {
+    BrowserRouter as Router,
+    Redirect
+} from "react-router-dom";
 
 
 const Lesson = ({item, nextCard, idLesson, resolveCard, unresolveCard}) => {
     const store = useStore();
     const [cardState, setCardState] = useState({
-        card: item.cards.find(el => el.id === store.getState().showCard.indexCard)
+        card: item.cards.find(el => el.id === store.getState().showCard.indexCard),
     });
     const [showState, setShowState] = useState({
         show: cardState.card.question.title,
@@ -18,38 +20,44 @@ const Lesson = ({item, nextCard, idLesson, resolveCard, unresolveCard}) => {
 
     const generateCard = () => {
         let limit = item.cards.length;
-        console.log(cardState);
-        if (cardState.card.id +1 === limit) {
-            unresolveCard(idLesson);
-            console.log('test')
+        if(store.getState().showCard.indexCard === 'done') {
+            return <Redirect to='/'/>;
+        } else {
+            if (cardState.card.id +1 === limit) {
+                unresolveCard(idLesson);
+            }
+            else if ( cardState.card.id + 1 < limit) {
+                nextCard(limit);
+            }
+            setCardState({
+                card: item.cards.find(el => el.id === store.getState().showCard.indexCard)
+            });
+            let test = item.cards.find(el => el.id === store.getState().showCard.indexCard)
+            setShowState({
+                show: test.question.title,
+                cardOrQuestion: Math.floor(Math.random() * 3) + 1,
+            });
         }
-        else if ( cardState.card.id + 1 < limit) {
-            nextCard(limit);
-        }
-        setCardState({
-            card: item.cards.find(el => el.id === store.getState().showCard.indexCard)
-        });
-        let test = item.cards.find(el => el.id === store.getState().showCard.indexCard)
-        setShowState({
-            show: test.question.title,
-            cardOrQuestion: Math.floor(Math.random() * 2) + 1,
-        });
-        cardOrQuestion = 'question';
-
     };
 
     const checkResponse = (id, response) => {
         if (response === cardState.card.question.response.goodResponse) {
-            document.querySelector('#'+ id).style.backgroundColor = '#32cdff';
+            document.querySelector('#'+ id).classList.add('goodResponse');
             resolveCard(idLesson, cardState.card.id)
+            console.log(store.getState().lesson);
         } else {
-            document.querySelector('#'+ id).style.backgroundColor = '#FF5B45'
+            document.querySelector('#'+ id).classList.add('badResponse');
         }
     };
 
     let cardOrQuestion = 'card';
     const next = () => {
         generateCard();
+        let button  = document.querySelectorAll('.response')
+        button.forEach(el => {
+            el.classList.remove('goodResponse');
+            el.classList.remove('badResponse');
+        })
     };
     function returnSurvey() {
         return (
@@ -71,7 +79,7 @@ const Lesson = ({item, nextCard, idLesson, resolveCard, unresolveCard}) => {
                 {
                     showState.cardOrQuestion === 1 ?
                             <div className="Lesson_Container_card">
-                                <Card indexOfLesson={item.id} id={store.getState().showCard.indexCard}/>
+                                <Card indexOfLesson={item.id}/>
                             </div>
                             : returnSurvey()
                 }
