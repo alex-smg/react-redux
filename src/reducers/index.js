@@ -1,4 +1,4 @@
-import { NEXT_CARD } from '../actions/actionTypes'
+import {NEXT_CARD, RESOLVE_CARD, UNRESOLVE_CARD} from '../actions/actionTypes'
 
 const initState = {
     showCard : {
@@ -15,11 +15,12 @@ const initState = {
                     question: {
                         title : " 1 - Lorem ipsum dolor sit amet ?",
                         response: {
-                            1: "response 1",
-                            2: "response 2",
-                            3: "response 3",
-                            goodResponse: 1,
-                        }
+                            response_1: "response 1",
+                            response_2: "response 2",
+                            response_3: "response 3",
+                            goodResponse: "response 1",
+                        },
+                        resolve: false
                     }
                 },
                  {
@@ -28,11 +29,12 @@ const initState = {
                     question: {
                         title : "2 - Lorem ipsum dolor sit amet ?",
                         response: {
-                            1: "response 1",
-                            2: "response 2",
-                            3: "response 3",
-                            goodResponse: 3,
-                        }
+                            response_1: "response 1",
+                            response_2: "response 2",
+                            response_3: "response 3",
+                            goodResponse: "response 2",
+                        },
+                        resolve: false,
                     }
                 },
                  {
@@ -41,11 +43,68 @@ const initState = {
                     question: {
                         title : "3 - Lorem ipsum dolor sit amet ?",
                         response: {
-                            1: "response 1",
-                            2: "response 2",
-                            3: "response 3",
-                            goodResponse: 2,
-                        }
+                            response_1: "response 1",
+                            response_2: "response 2",
+                            response_3: "response 3",
+                            goodResponse: "response 3",
+                        },
+                        resolve: false
+                    }
+                },
+                {
+                     id: 3,
+                    title: "Carte 4",
+                    question: {
+                        title : "4 - Lorem ipsum dolor sit amet ?",
+                        response: {
+                            response_1: "response 1",
+                            response_2: "response 2",
+                            response_3: "response 3",
+                            goodResponse: "response 3",
+                        },
+                        resolve: false
+                    }
+                },
+                 {
+                     id: 4,
+                    title: "Carte 5",
+                    question: {
+                        title : "5 - Lorem ipsum dolor sit amet ?",
+                        response: {
+                            response_1: "response 1",
+                            response_2: "response 2",
+                            response_3: "response 3",
+                            goodResponse: "response 3",
+                        },
+                        resolve: false
+                    }
+                },
+                 {
+                     id: 5,
+                    title: "Carte 6",
+                    question: {
+                        title : "6 - Lorem ipsum dolor sit amet ?",
+                        response: {
+                            response_1: "response 1",
+                            response_2: "response 2",
+                            response_3: "response 3",
+                            goodResponse: "response 3",
+                        },
+                        resolve: false
+                    }
+                },
+                 {
+                     id: 6,
+                    title: "Carte 7",
+                    question: {
+                        title : "7 - Lorem ipsum dolor sit amet ?",
+                        response: {
+                            response_1: "response 1",
+                            response_2: "response 2",
+                            response_3: "response 3",
+                            goodResponse: "response 3",
+                        },
+                        resolve: false
                     }
                 },
 
@@ -61,6 +120,23 @@ const rootReducer = (state = initState, action) => {
             if (state.showCard.indexCard + 1 <= action.limit) {
                 newState.showCard.indexCard  = state.showCard.indexCard + 1;
             }
+            break;
+        case UNRESOLVE_CARD:
+            let unresolve = [];
+            const findLessonCard = newState.lesson.find(el => el.id === action.idLesson);
+            findLessonCard.cards.forEach(card => {
+                if(card.question.resolve === false && unresolve.length < 2) {
+                    unresolve.push(card);
+                }
+            });
+            newState.showCard.indexCard = unresolve[0].id;
+            console.log(unresolve);
+            break;
+        case RESOLVE_CARD:
+            console.log('hello');
+            const findLesson = newState.lesson.find(el => el.id === action.idLesson);
+            const cardResolve = findLesson.cards.find(el => el.id === action.idCard);
+            cardResolve.question.resolve = true;
             break;
 
         default:

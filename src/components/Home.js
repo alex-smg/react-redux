@@ -4,8 +4,6 @@ import Card from './Card'
 import ContainerLeft from './ContainerLeft'
 import {
     BrowserRouter as Router,
-    Switch,
-    Route,
     Link
 } from "react-router-dom";
 
@@ -13,7 +11,7 @@ import {
 const Home = (props) => {
 
     const [changeState, setChangeState] = useState({
-        showCards: true,
+        showCards: false,
     });
 
     const showLessons = () => {
@@ -42,21 +40,20 @@ const Home = (props) => {
                         </button>
                     </div>
 
-
-                        <div>
-                            {
-                                changeState.showCards !== true &&
-                                props.array.map((item) => {
-                                    return (
-                                        <Link to={'/lesson/' + item.id}>
-                                            <div>
-                                                <Card numberCard={props.array.indexOf(item)}/>
-                                            </div>
-                                        </Link>
-                                    )
-                                })
-                            }
-                        </div>
+                    <div>
+                        {
+                            changeState.showCards !== true &&
+                            props.array.map((item) => {
+                                return (
+                                    <Link to={'/lesson/' + item.id}>
+                                        <div>
+                                            <Card numberCard={props.array.indexOf(item)} key={item.id}/>
+                                        </div>
+                                    </Link>
+                                )
+                            })
+                        }
+                    </div>
                     <div>
                         {
                             changeState.showCards === true &&
@@ -64,7 +61,7 @@ const Home = (props) => {
                                 return(
                                 item.cards.map((el) => {
                                     return (
-                                        <Link to={'/lesson/' + item.id}>
+                                        <Link to={'/lesson/' + item.id} key={el.id}>
                                             <div>
                                                 <h3>{el.question.title}</h3>
                                             </div>
@@ -74,11 +71,6 @@ const Home = (props) => {
                                 )
                             })
                         }
-                    </div>
-
-
-                    <div>
-
                     </div>
                 </div>
             </div>

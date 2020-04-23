@@ -7,11 +7,11 @@ import {
 
 function Navbar() {
     return (
-            <div className="Navbar">
+            <nav className="Navbar">
                 <Link to={'/'}>
                     <img className="logo" src={logo}/>
                 </Link>
-            </div>
+            </nav>
     );
 }
 
