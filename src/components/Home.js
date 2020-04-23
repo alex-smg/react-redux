@@ -47,25 +47,25 @@ const Home = (props) => {
                                 return (
                                     <Link to={'/lesson/' + item.id}>
                                         <div>
-                                            <Card numberCard={props.array.indexOf(item)} key={item.id}/>
+                                            <div className="card">
+                                                <h2>{item.title}</h2>
+                                            </div>
                                         </div>
                                     </Link>
                                 )
                             })
                         }
                     </div>
-                    <div>
+                    <div className="allCards">
                         {
                             changeState.showCards === true &&
                             props.array.map((item) => {
                                 return(
                                 item.cards.map((el) => {
                                     return (
-                                        <Link to={'/lesson/' + item.id} key={el.id}>
-                                            <div>
-                                                <h3>{el.question.title}</h3>
-                                            </div>
-                                        </Link>
+                                        <div className="wrap">
+                                            <Card indexOfLesson={item.id} id={el.id}/>
+                                        </div>
                                     )
                                 })
                                 )

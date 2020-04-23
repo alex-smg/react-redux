@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import { connect } from 'react-redux'
 import {useStore} from 'react-redux';
 import {nextCard, resolveCard, unresolveCard} from "../actions/actions";
+import Card from './Card';
 
 
 
@@ -37,27 +38,6 @@ const Lesson = ({item, nextCard, idLesson, resolveCard, unresolveCard}) => {
 
     };
 
-    const swip = () => {
-        setShowState({
-            show: showState.show === cardState.card.question.response.goodResponse ? cardState.card.question.title : cardState.card.question.response.goodResponse,
-            cardOrQuestion: 1
-        });
-        let card = document.querySelector('#card-'+ cardState.card.id);
-        let title = document.querySelector('#title-'+ cardState.card.id);
-
-        if(card.classList[1] === 'transition') {
-            card.classList.add('transition2');
-            card.classList.remove('transition');
-            title.classList.add('transitionh22');
-            title.classList.remove('transitionh2');
-        } else {
-            card.classList.add('transition');
-            card.classList.remove('transition2');
-            title.classList.add('transitionh2');
-            title.classList.remove('transitionh22');
-        }
-    };
-
     const checkResponse = (id, response) => {
         if (response === cardState.card.question.response.goodResponse) {
             document.querySelector('#'+ id).style.backgroundColor = '#32cdff';
@@ -71,17 +51,6 @@ const Lesson = ({item, nextCard, idLesson, resolveCard, unresolveCard}) => {
     const next = () => {
         generateCard();
     };
-    function returnCard() {
-        return (
-            <div className="cardLesson">
-                <div id={"card-" + cardState.card.id} className="question" onClick={() => swip()}>
-                    <div className="containerTitleQuestion">
-                        <h3 id={"title-"+ cardState.card.id} className="titleQuestion">{showState.show}</h3>
-                    </div>
-                </div>
-            </div>
-        )
-    }
     function returnSurvey() {
         return (
             <div className="survey">
@@ -97,10 +66,14 @@ const Lesson = ({item, nextCard, idLesson, resolveCard, unresolveCard}) => {
         )
     }
     return (
-        <div className="lesson">
-            <div className="containerCardLesson">
+        <div className="Lesson">
+            <div className="Lesson_Container">
                 {
-                    showState.cardOrQuestion === 1 ? returnCard() : returnSurvey()
+                    showState.cardOrQuestion === 1 ?
+                            <div className="Lesson_Container_card">
+                                <Card indexOfLesson={item.id} id={store.getState().showCard.indexCard}/>
+                            </div>
+                            : returnSurvey()
                 }
                 <button className="button" onClick={() => next()}>CONTINUE</button>
             </div>

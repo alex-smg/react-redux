@@ -14,7 +14,7 @@ body {
   display: block;
   margin: auto;
 }
-
+/* NAVBAR */
 .Navbar {
   background-color: #32cdff;
   box-shadow: 0 3px 5px rgba(0,0,0,.05);
@@ -30,6 +30,8 @@ body {
   display: flex;
   margin-left: 30px;
 }
+
+/* HOME */
 
 .profil {
   width: 20%;
@@ -53,6 +55,16 @@ body {
   border-radius: 15px;
   box-shadow: 0 0 25px 0 rgba(0,0,0,.04);
   width: 70%;
+}
+
+.allCards {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.allCards .wrap {
+  width: 28%;
+  margin: 30px 0;
 }
 
 .card {
@@ -108,12 +120,17 @@ a {
   border-radius: 15px;
   box-shadow: 0 2px 20px 0 rgba(0,0,0,.1);
 }
-.containerCardLesson  {
+.Lesson_Container  {
   width: 38%;
   margin: auto;
 }
+
+.Lesson_Container_card {
+  width: 40%;
+  margin: auto;
+}
 .cardLesson {
-  width: 50%;
+  width: 100%;
   margin: auto;
   cursor: pointer;
   position: relative;
