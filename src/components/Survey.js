@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 
 
 const Survey = ({card}) => {
-    console.log(card);
     return (
         <div className="survey">
             <div>

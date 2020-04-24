@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import {connect} from 'react-redux'
 
 function Card (props) {
-    console.log(props.item);
     const [showState, setShowState] = useState({
         show: props.item.question.title,
         responseOrResult: 1,
@@ -43,7 +42,7 @@ function Card (props) {
 
 const mapStateToProps = (state, ownProps) => {
     const index =  state.showCard.indexCard;
-    const itemState = state.lesson[ownProps.indexOfLesson].cards.find(el => el.id === state.showCard.indexCard);
+    const itemState = state.lesson[ownProps.indexOfLesson].cards.find(el => el.id === ownProps.id);
     return {
         index: index,
         item: itemState

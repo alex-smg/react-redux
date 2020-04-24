@@ -8,6 +8,7 @@ const initState = {
          {
              id: 0,
              title: 1,
+             cardResolve: 0,
              cards : [
                 {
                     id: 0,
@@ -117,7 +118,7 @@ const rootReducer = (state = initState, action) => {
     const newState = Object.assign({}, state);
     switch (action.type) {
         case NEXT_CARD:
-            if (state.showCard.indexCard + 1 <= action.limit && state.lesson[0].cards[state.showCard.indexCard + 1].question.resolve === false) {
+            if (state.showCard.indexCard + 1 <= action.limit -1 && state.lesson[0].cards[state.showCard.indexCard + 1].question.resolve === false) {
                 newState.showCard.indexCard  = state.showCard.indexCard + 1;
             } else {
                 let unresolve = [];
@@ -127,35 +128,17 @@ const rootReducer = (state = initState, action) => {
                     }
                 });
                 if (unresolve.length === 0) {
-                    console.log('vide')
-                    newState.showCard.indexCard = 'done';
-                    console.log(newState.showCard.indexCard)
+                    newState.lesson[0].cardResolve += 1 ;
                 } else {
                     newState.showCard.indexCard = unresolve[0].id;
                 }
             }
             break;
-        case UNRESOLVE_CARD:
-            let unresolve = [];
-            const findLessonCard = newState.lesson.find(el => el.id === action.idLesson);
-            findLessonCard.cards.forEach(card => {
-                if(card.question.resolve === false && unresolve.length < 2) {
-                    unresolve.push(card);
-                }
-            });
-            if (unresolve.length === 0) {
-                console.log('vide')
-                newState.showCard.indexCard = 'done';
-            } else {
-                newState.showCard.indexCard = unresolve[0].id;
-            }
-            break;
         case RESOLVE_CARD:
-            console.log('hello');
             const findLesson = newState.lesson.indexOf(newState.lesson.find(el => el.id === action.idLesson));
             const cardResolve = newState.lesson[findLesson].cards.indexOf(newState.lesson[findLesson].cards.find(el => el.id === action.idCard));
             newState.lesson[findLesson].cards[cardResolve].question.resolve = true;
-            console.log(newState.lesson[findLesson].cards[cardResolve].question.resolve);
+            newState.lesson[findLesson].cardResolve += 1;
             break;
         default:
             return state;

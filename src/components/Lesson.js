@@ -12,6 +12,7 @@ const Lesson = ({item, nextCard, idLesson, resolveCard, unresolveCard}) => {
     const store = useStore();
     const [cardState, setCardState] = useState({
         card: item.cards.find(el => el.id === store.getState().showCard.indexCard),
+        cardResolve: false,
     });
     const [showState, setShowState] = useState({
         show: cardState.card.question.title,
@@ -20,31 +21,30 @@ const Lesson = ({item, nextCard, idLesson, resolveCard, unresolveCard}) => {
 
     const generateCard = () => {
         let limit = item.cards.length;
-        if(store.getState().showCard.indexCard === 'done') {
-            return <Redirect to='/'/>;
-        } else {
-            if (cardState.card.id +1 === limit) {
-                unresolveCard(idLesson);
-            }
-            else if ( cardState.card.id + 1 < limit) {
-                nextCard(limit);
-            }
+        if(item.cardResolve === limit) {
             setCardState({
-                card: item.cards.find(el => el.id === store.getState().showCard.indexCard)
+                card: item.cards.find(el => el.id === store.getState().showCard.indexCard),
+                cardResolve: true,
             });
-            let test = item.cards.find(el => el.id === store.getState().showCard.indexCard)
-            setShowState({
-                show: test.question.title,
-                cardOrQuestion: Math.floor(Math.random() * 3) + 1,
-            });
+        } else {
+            if ( cardState.card.id + 1 <= limit) {
+                nextCard(limit);
+                setCardState({
+                    card: item.cards.find(el => el.id === store.getState().showCard.indexCard)
+                });
+                let test = item.cards.find(el => el.id === store.getState().showCard.indexCard)
+                setShowState({
+                    show: test.question.title,
+                    cardOrQuestion: showState.cardOrQuestion === 1 ? 2 : 1,
+                });
+            }
         }
     };
 
     const checkResponse = (id, response) => {
         if (response === cardState.card.question.response.goodResponse) {
             document.querySelector('#'+ id).classList.add('goodResponse');
-            resolveCard(idLesson, cardState.card.id)
-            console.log(store.getState().lesson);
+            resolveCard(idLesson, cardState.card.id);
         } else {
             document.querySelector('#'+ id).classList.add('badResponse');
         }
@@ -75,11 +75,14 @@ const Lesson = ({item, nextCard, idLesson, resolveCard, unresolveCard}) => {
     }
     return (
         <div className="Lesson">
+            <div className="progress">
+                <div className="insideProgress" style={cardState.cardResolve !== true ? {width:(item.cardResolve * 100) / item.cards.length+'%'} : {width: '100%'}}></div>
+            </div>
             <div className="Lesson_Container">
                 {
                     showState.cardOrQuestion === 1 ?
                             <div className="Lesson_Container_card">
-                                <Card indexOfLesson={item.id}/>
+                                <Card indexOfLesson={item.id} id={store.getState().showCard.indexCard}/>
                             </div>
                             : returnSurvey()
                 }

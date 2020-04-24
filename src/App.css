@@ -131,6 +131,19 @@ a {
   border-radius: 15px;
   box-shadow: 0 2px 20px 0 rgba(0,0,0,.1);
 }
+.progress {
+  width: 60%;
+  margin: 20px auto;
+  height: 2vh;
+  border-radius: 10px;
+  padding: 3px;
+  background-color: #FFFFFF;
+}
+.insideProgress {
+  transition: 0.5s;
+  background-color: yellow;
+  height: 100%;
+}
 .Lesson_Container  {
   width: 38%;
   margin: auto;

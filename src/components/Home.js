@@ -18,13 +18,11 @@ const Home = (props) => {
         setChangeState( {
             showCards: false,
         });
-        console.log(changeState.showCards);
     };
     const showCards = () => {
         setChangeState( {
             showCards: true,
-        })
-        console.log(changeState.showCards);
+        });
     }
     return(
         <div>
