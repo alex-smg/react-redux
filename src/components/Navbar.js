@@ -1,7 +1,6 @@
 import React from 'react';
 import logo from '../assets/logo.svg';
 import {
-    BrowserRouter as Router,
     Link
 } from "react-router-dom";
 

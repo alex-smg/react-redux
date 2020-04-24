@@ -2,10 +2,6 @@ import React, {useState} from 'react'
 import { connect, useStore } from 'react-redux'
 import {nextCard, resolveCard, unresolveCard} from "../actions/actions";
 import Card from './Card';
-import {
-    BrowserRouter as Router,
-    Redirect
-} from "react-router-dom";
 
 
 const Lesson = ({item, nextCard, idLesson, resolveCard, unresolveCard}) => {
@@ -13,10 +9,10 @@ const Lesson = ({item, nextCard, idLesson, resolveCard, unresolveCard}) => {
     const [cardState, setCardState] = useState({
         card: item.cards.find(el => el.id === store.getState().showCard.indexCard),
         cardResolve: false,
+        pourcentResolve: (item.cardResolve * 100) / item.cards.length + '%'
     });
     const [showState, setShowState] = useState({
         show: cardState.card.question.title,
-        cardOrQuestion: 1,
     });
 
     const generateCard = () => {
@@ -25,12 +21,15 @@ const Lesson = ({item, nextCard, idLesson, resolveCard, unresolveCard}) => {
             setCardState({
                 card: item.cards.find(el => el.id === store.getState().showCard.indexCard),
                 cardResolve: true,
+                pourcentResolve: (item.cardResolve * 100) / item.cards.length + '%'
             });
+            alert('Survey Finished')
         } else {
             if ( cardState.card.id + 1 <= limit) {
                 nextCard(limit);
                 setCardState({
-                    card: item.cards.find(el => el.id === store.getState().showCard.indexCard)
+                    card: item.cards.find(el => el.id === store.getState().showCard.indexCard),
+                    pourcentResolve: (item.cardResolve * 100) / item.cards.length + '%'
                 });
                 let test = item.cards.find(el => el.id === store.getState().showCard.indexCard)
                 setShowState({
@@ -45,12 +44,19 @@ const Lesson = ({item, nextCard, idLesson, resolveCard, unresolveCard}) => {
         if (response === cardState.card.question.response.goodResponse) {
             document.querySelector('#'+ id).classList.add('goodResponse');
             resolveCard(idLesson, cardState.card.id);
+            console.log((item.cardResolve * 100) / item.cards.length+'%')
+            setCardState({
+                card: item.cards.find(el => el.id === store.getState().showCard.indexCard),
+                pourcentResolve: (item.cardResolve * 100) / item.cards.length + '%'
+            });
+            if (cardState.pourcentResolve === '100%') {
+                alert('Survey Finished')
+            }
         } else {
             document.querySelector('#'+ id).classList.add('badResponse');
         }
     };
 
-    let cardOrQuestion = 'card';
     const next = () => {
         generateCard();
         let button  = document.querySelectorAll('.response')
@@ -76,7 +82,7 @@ const Lesson = ({item, nextCard, idLesson, resolveCard, unresolveCard}) => {
     return (
         <div className="Lesson">
             <div className="progress">
-                <div className="insideProgress" style={cardState.cardResolve !== true ? {width:(item.cardResolve * 100) / item.cards.length+'%'} : {width: '100%'}}></div>
+                <div className="insideProgress" style={{width: cardState.pourcentResolve}}></div>
             </div>
             <div className="Lesson_Container">
                 {

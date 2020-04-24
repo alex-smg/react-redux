@@ -114,10 +114,14 @@ body {
   width: 90%;
   text-align: center;
 }
-
+.card .div {
+  width: 90%;
+  margin: auto;
+}
 .card h2 {
   display: block;
-  margin: auto;
+  margin: 0 auto 20px auto;
+  text-align: center;
 }
 a {
   cursor: pointer;
@@ -138,6 +142,12 @@ a {
   border-radius: 10px;
   padding: 3px;
   background-color: #FFFFFF;
+}
+
+.progressHome {
+  border: 1px solid #e8e8e8;
+  margin: auto;
+  width: 80%;
 }
 .insideProgress {
   transition: 0.5s;

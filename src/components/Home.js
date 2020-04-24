@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import Card from './Card'
 import ContainerLeft from './ContainerLeft'
 import {
-    BrowserRouter as Router,
     Link
 } from "react-router-dom";
 
@@ -46,7 +45,12 @@ const Home = (props) => {
                                     <Link to={'/lesson/' + item.id}>
                                         <div>
                                             <div className="card">
-                                                <h2>{item.title}</h2>
+                                                <div className="div">
+                                                    <h2>{item.title}</h2>
+                                                    <div className="progress progressHome">
+                                                        <div className="insideProgress" style={{width: (item.cardResolve * 100) / item.cards.length + '%'}}></div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </Link>

@@ -1,4 +1,4 @@
-import {NEXT_CARD, RESOLVE_CARD, UNRESOLVE_CARD} from '../actions/actionTypes'
+import {NEXT_CARD, RESOLVE_CARD} from '../actions/actionTypes'
 
 const initState = {
     showCard : {
